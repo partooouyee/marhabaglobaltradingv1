@@ -1,0 +1,25 @@
+name: Extract Zip File
+on:
+  push:
+    branches:
+      - main  # Pastikan ini sesuai dengan nama cabang (branch) utama Anda
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract zip file
+        run: |
+          # Ganti nama 'website.zip' dengan nama file zip Anda yang sebenarnya
+          unzip -o mgtob.zip -d . 
+          rm mgtob.zip
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@://github.com"
+          git add .
+          git commit -m "Auto-extract uploaded zip file"
+          git push
